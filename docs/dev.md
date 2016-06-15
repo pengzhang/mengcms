@@ -17,6 +17,7 @@
  * [sublime](https://www.sublimetext.com) (推荐使用) or webstorm
  * [navicat](https://www.navicat.com.cn)
  * [redis gui](http://redisdesktop.com/)
+ 
  以上工具只是作者推荐,非必须
  
 ##### sublime建议安装插件
