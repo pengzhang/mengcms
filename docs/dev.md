@@ -25,6 +25,8 @@
  * 插件库 <https://packagecontrol.io>
  * ejs  ejs模板
  * emment  html生成
+ * tag html格式化  Ctrl+Alt+F
+ * pretty html_js_css格式化 Ctrl+Shift+H
  
  
  
