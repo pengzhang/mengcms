@@ -27,6 +27,7 @@
  * emment  html生成
  * tag html格式化  Ctrl+Alt+F
  * pretty html_js_css格式化 Ctrl+Shift+H
+ * docblockr 注释工具 /**  */
  
  
  
