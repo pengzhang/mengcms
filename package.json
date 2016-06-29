@@ -16,10 +16,12 @@
     "lodash": "^4.13.1",
     "morgan": "~1.6.1",
     "mysql": "^2.11.1",
+    "request-ip": "^1.2.2",
     "sequelize": "^3.23.3",
     "sequelize-cli": "^2.4.0",
     "serve-favicon": "~2.3.0",
     "sqlite3": "^3.1.4",
-    "superagent": "^2.0.0"
+    "superagent": "^2.0.0",
+    "useragent": "^2.1.9"
   }
 }
