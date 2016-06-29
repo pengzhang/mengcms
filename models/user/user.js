@@ -14,9 +14,9 @@
  avatar: 头像
 
 *****************************************/
-
-
-var User = sequelize.define('user', {
+var Sequelize = require("sequelize");
+var sequelize = require('../index')
+User = sequelize.define('user', {
     username: {
         type: Sequelize.STRING,
         field: 'username'
@@ -57,3 +57,5 @@ var User = sequelize.define('user', {
 }, {
     freezeTableName: true
 })
+
+module.exports = User

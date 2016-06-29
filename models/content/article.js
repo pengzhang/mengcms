@@ -4,9 +4,7 @@
  author: 张鹏
  date: 2016-06-22
  
-
-
-
+ draft: 草稿
 *****************************************/
 
 var Article = sequelize.define('article', {
