@@ -11,7 +11,7 @@ User = sequelize.define('user', {
         type: Sequelize.STRING(50),
         field: 'username',
         validate: {
-            notNull: true
+            // allowNull: false
         }
     },
     nickname: {
@@ -22,7 +22,7 @@ User = sequelize.define('user', {
         type: Sequelize.STRING(50),
         field: 'password',
         validate: {
-            notNull: true
+            // notNull: true
         }
     },
     email: {
@@ -33,7 +33,7 @@ User = sequelize.define('user', {
         type: Sequelize.STRING(20),
         field: 'mobile',
         validate: {
-            isNumeric: true
+            // isNumeric: true
         }
     },
     //wechat_openid: 微信公众号的openid, 用于微信的绑定

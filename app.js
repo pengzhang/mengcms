@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session')
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 
 var ejs = require('ejs');
@@ -15,7 +16,7 @@ var AccessLog = require('./models/logging/access_log.js')
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/user/index');
 
 var app = express();
 
@@ -32,10 +33,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'mengcms',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: true }
+    secret: 'mengcms',
+    resave: true,
+    saveUninitialized: true,
+    store: new RedisStore({
+        host: "127.0.0.1",
+        port: 6379
+    }),
+    cookie: {
+        // secure: true,
+        maxAge: 600000
+    }
 }))
 
 
@@ -43,7 +51,7 @@ app.use(function(req, res, next) {
     var agent = useragent.parse(req.headers['user-agent']);
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var clientIp = requestIp.getClientIp(req);
-
+    console.log(clientIp)
     AccessLog.create({
         brower: agent.toString(),
         system: agent.os.toString(),
@@ -57,6 +65,11 @@ app.use(function(req, res, next) {
     })
 
     //session 拦截器
+    if (req.session) {
+        console.log(req.session.user)
+            // next();
+
+    }
     // if (req.session.user) { // 判断用户是否登录
     //     next();
     // } else {

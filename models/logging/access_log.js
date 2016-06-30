@@ -22,7 +22,7 @@ AccessLog = sequelize.define('access_log', {
         type: Sequelize.STRING(20),
         field: 'ip',
         validate: {
-            isIPv4: true
+            // isIPv4: true
         }
     },
     //所使用的浏览器名称
