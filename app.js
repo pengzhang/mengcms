@@ -6,22 +6,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+var logService = require('./main_modules/logging/service/log_service')
 
 
 var ejs = require('ejs');
 var engine = require('ejs-mate');
-var useragent = require('useragent');
-var requestIp = require('request-ip');
-var AccessLog = require('./models/logging/access_log.js')
 
 
-var routes = require('./routes/index');
-var users = require('./routes/user/index');
+
+var routes = require('./main_modules/index');
+var users = require('./main_modules/user/index');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'main_modules'));
 app.engine('html', engine)
 app.set('view engine', 'html');
 
@@ -48,21 +47,8 @@ app.use(session({
 
 
 app.use(function(req, res, next) {
-    var agent = useragent.parse(req.headers['user-agent']);
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var clientIp = requestIp.getClientIp(req);
-    console.log(clientIp)
-    AccessLog.create({
-        brower: agent.toString(),
-        system: agent.os.toString(),
-        device: agent.device.toString(),
-        url: fullUrl,
-        ip: clientIp
-    }).then(function(created) {
-        console.log(JSON.stringify(created))
-    }).catch(function(err) {
-        console.error(err)
-    })
+    //记录访问日志
+    logService.accessLog(req);
 
     //session 拦截器
     if (req.session.user) {

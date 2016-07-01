@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('mengcms:server');
 var http = require('http');
-var sync_models = require('../models/sync_models')
+var sync_models = require('../database/migration')
 
 /**
  * Get port from environment and store in Express.
