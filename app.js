@@ -65,7 +65,7 @@ app.use(function(req, res, next) {
     })
 
     //session 拦截器
-    if (req.session) {
+    if (req.session.user) {
         console.log(req.session.user)
             // next();
 
