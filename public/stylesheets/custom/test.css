@@ -1,0 +1,31 @@
+.page-header {
+    margin-top: -10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #fff;
+}
+.condition .form-control{
+    width: 200px;
+    margin-left: 15px;
+}
+.well{
+    height: 105px;
+}
+h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+.list-border{
+    border: 1px solid #dddddd;
+    margin-bottom: 20px;
+}
+.exam{
+    width: 920px;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+.page-header{
+    margin-top: 0px;
+}
+.right-recommend{
+    margin-top: 0px;
+}
+.right-recommend h4{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.media-list hr{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.media-list hr:last-child{
+    display: none;
+}
+.social{
+    color: #cccccc;
+}
+.media-list{
+    padding: 15px;
+}
+.list-border{
+    border: 1px solid #dddddd;
+    border-top: 0px;
+    margin-bottom: 20px;
+}

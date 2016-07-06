@@ -7,15 +7,14 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var logService = require('./main_modules/logging/service/log_service')
-
-
+var env = process.env.NODE_ENV || "development";
+var redis_conf = require(path.join(__dirname, '.', 'config', 'redis.json'))[env];
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 
+//主模块
+var main_modules = require('./main_modules/index.js');
 
-
-var routes = require('./main_modules/index');
-var users = require('./main_modules/user/index');
 
 var app = express();
 
@@ -31,13 +30,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//session存储
 app.use(session({
     secret: 'mengcms',
     resave: true,
     saveUninitialized: true,
     store: new RedisStore({
-        host: "127.0.0.1",
-        port: 6379
+        host: redis_conf.host,
+        port: redis_conf.port
     }),
     cookie: {
         // secure: true,
@@ -45,13 +46,13 @@ app.use(session({
     }
 }))
 
-
+//权限控制
 app.use(function(req, res, next) {
     //记录访问日志
     logService.accessLog(req);
 
     //session 拦截器
-    if (req.session.user) {
+    if (req.session && req.session.user) {
         console.log(req.session.user)
             // next();
 
@@ -80,8 +81,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
+//自动注册路由
+for (var key in main_modules.modules) {
+    app.use('/' + key, main_modules.modules[key]);
+    app.use('/' + key + '/static', express.static(main_modules.statics[key]))
+}
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

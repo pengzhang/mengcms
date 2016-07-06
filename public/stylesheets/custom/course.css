@@ -1,0 +1,43 @@
+
+h2{
+    margin-top: 0px;
+}
+.player{
+    width: 780px;
+    height: 450px;
+}
+.player img{
+    width: 750px;
+    height: 430px;
+}
+.note{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.media-list{
+    padding: 15px;
+}
+.list-border{
+    border: 1px solid #dddddd;
+    border-top: 0px;
+    margin-bottom: 20px;
+}
+.right-recommend{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.social{
+	color:#cccccc;
+}
+.media-body{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dddddd;
+}
+.media:last-child .media-body{
+     border-bottom: none;
+ }
+.msg{
+	padding-left: 5px;
+	padding-top: 5px;
+}
+ 

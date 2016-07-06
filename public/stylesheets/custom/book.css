@@ -1,0 +1,44 @@
+hr{
+    margin-top: 0px;
+}
+
+.book-show{
+    height: 350px;
+}
+.book-show img{
+    width: 260px;
+    height: 330px;
+}
+.book-detail{
+    margin-top: 30px;
+}
+.page-header {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+.page-header h3{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.media-list{
+    padding: 15px;
+}
+.list-border{
+    border: 1px solid #dddddd;
+    border-top: 0px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.right-recommend{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+
+
+
+
+
+
