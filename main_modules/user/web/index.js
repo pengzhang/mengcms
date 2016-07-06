@@ -35,6 +35,15 @@ router.post('/register', function(req, res, next) {
  * @param  {[type]} next){                 var type [description]
  * @return {[type]}         [description]
  */
+router.get('/login', function(req, res, next) {
+    var type = req.query.type;
+    if (type == 'api') {
+        res.send()
+    } else {
+        res.send('login')
+    }
+})
+
 router.post('/login', function(req, res, next) {
     var type = req.query.type;
     if (type == 'api') {
