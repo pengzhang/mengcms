@@ -14,9 +14,9 @@
  
 ##### 开发工具
  
- * [sublime](https://www.sublimetext.com) (推荐使用) or webstorm
- * [navicat](https://www.navicat.com.cn)
+ * [sublime](https://www.sublimetext.com)
  * [redis gui](http://redisdesktop.com/)
+ * [navicat](https://www.navicat.com.cn)
  
  以上工具只是作者推荐,非必须
  
