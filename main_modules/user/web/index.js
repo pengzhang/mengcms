@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var UserService = require('../service/user_service')()
+var UserService = require('../service/user_service')
+var Authorize = require('../../../authorize')
 
-router.get('/', function(req, res, next) {
-    res.render('user/views/index',{title:'user'});
+router.get('/', Authorize.user, function(req, res, next) {
+    res.send('user')
+        // res.render('user/views/index', { title: 'user' });
 });
 
 
@@ -11,46 +13,57 @@ router.get('/', function(req, res, next) {
  * 用户注册
  * @param  {[type]} req         [description]
  * @param  {[type]} res         [description]
- * @param  {[type]} next){  var user          [description]
  * @return {[type]}             [description]
  */
-router.post('/register', function(req, res, next) {
-    var user = req.body
-    UserService.register(user, function(err, data) {
-        if (err) {
-            console.error(err)
-            res.send('failure')
+router.get('/register', function(req, res, next) {
+    res.render('user/views/register', {
+        title: '用户注册',
+        success: req.flash('success'),
+        error: req.flash('error')
+    });
+})
 
+router.post('/register', function(req, res, next) {
+    UserService.register(req.body, function(err, result) {
+        if (err) {
+            req.flash('error', result);
+            res.redirect('/user/register');
         } else {
-            console.log(JSON.stringify(data))
-            res.send('success')
+            req.flash('success', '注册成功');
+            res.redirect('/user/login');
         }
-    })
+    });
 })
 
 /**
  * 用户登录
  * @param  {[type]} req     [description]
  * @param  {[type]} res     [description]
- * @param  {[type]} next){                 var type [description]
  * @return {[type]}         [description]
  */
 router.get('/login', function(req, res, next) {
-    var type = req.query.type;
-    if (type == 'api') {
-        res.send()
-    } else {
-        res.send('login')
-    }
+    res.render('user/views/login', {
+        title: '用户登录',
+        username: req.flash('username'),
+        success: req.flash('success'),
+        error: req.flash('error')
+    });
 })
 
 router.post('/login', function(req, res, next) {
-    var type = req.query.type;
-    if (type == 'api') {
-        res.send()
-    } else {
-        res.render()
-    }
+    UserService.login(req.body.username, req.body.password, function(err, result) {
+        if (err) {
+            req.flash('username', req.body.username);
+            req.flash('error', result);
+            res.redirect('/user/login');
+        } else {
+            req.session.user = result.id;
+            req.session.username = result.username;
+            req.session.save();
+            res.redirect('/user/');
+        }
+
+    });
 })
 
 /**

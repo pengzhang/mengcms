@@ -16,6 +16,7 @@
     "express": "~4.13.1",
     "express-session": "^1.13.0",
     "lodash": "^4.13.1",
+    "md5": "^2.1.0",
     "morgan": "~1.6.1",
     "mysql": "^2.11.1",
     "request-ip": "^1.2.2",

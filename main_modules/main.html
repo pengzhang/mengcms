@@ -1,14 +1,26 @@
 <! DOCTYPE html>
 <html>
+
 <head>
-	<title></title>
-	    <link href="/stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <title>
+        <%- block('title').toString() %>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/stylesheets/bootstrap/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
     <link href="/stylesheets/font_awesome/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <!--[if lt IE 9]>
+    <script src="/javascripts/html5shiv.min.js"></script>
+    <script src="/javascripts/respond.min.js"></script>
+    <![endif]-->
+    <script src="/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
 </head>
+
 <body>
-	<%- body -%>
+    <%- body -%>
 </body>
+
 </html>
