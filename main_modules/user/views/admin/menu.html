@@ -1,0 +1,23 @@
+<% admin.menu.forEach(function(data){ %>
+    <%if(data.child){%>
+    	<li class="parent <%if(current==data.id){%>active<%}%>">
+            <a href="<%=data.url %>">
+                <span class="glyphicon glyphicon-<%=data.icon %>"></span> <%=data.name %> 
+                <span data-toggle="collapse" href="#<%=data.id %>" class="icon pull-right">
+                	<em class="glyphicon glyphicon-s glyphicon-plus"></em>
+                </span>
+            </a>
+            <ul class="children collapse" id="<%=data.id %>">
+		<%data.child.forEach(function(child){%>
+                <li>
+                    <a class="" href="<%=child.url %>">
+                        <span class="glyphicon glyphicon-<%=child.icon %>"></span> <%=child.name %>
+                    </a>
+                </li>
+        <%})%>
+			</ul>
+        </li>
+    <%}else{%>
+        <li <%if(current==data.id){%>class="active"<%}%>><a href="<%=data.url %>"><span class="glyphicon glyphicon-<%=data.icon %>"></span> <%=data.name %></a></li>
+    <%}
+})%>

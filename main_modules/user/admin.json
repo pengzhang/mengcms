@@ -1,0 +1,17 @@
+{
+    "menu": {
+        "id":"user_menu",
+        "name": "用户中心",
+        "url": "/user",
+        "icon": "user",
+        "child": [{
+            "name": "用户中心",
+            "url": "/user",
+            "icon": "user"
+        }, {
+            "name": "用户中心",
+            "url": "/user",
+            "icon": "user"
+        }]
+    }
+}

@@ -1,54 +1,60 @@
-<% layout('index') -%>
-    <link href="/user/static/admin_template/css/datepicker3.css" rel="stylesheet">
-    <link href="/user/static/admin_template/css/styles.css" rel="stylesheet">
-    <link href="/user/static/admin_template/css/bootstrapValidator.min.css" rel="stylesheet" />
-    <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <%- partial('user/views/alert', {success:success, error:error})  %>
-                        <form action="/user/register" method="post" id="register_form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="用户名" id="username" name="username" type="text" data-bv-notempty data-bv-notempty-message="用户名为空" data-bv-regexp="true" data-bv-regexp-regexp="[a-zA-Z0-9]+" data-bv-regexp-message="用户名只能是字母和数字" data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-message="用户名至少6个字符以上" autofocus>
+<% layout('main') -%>
+    <% block('title').append(title)  %>
+        <% block('style').append('<link href="/user/static/admin_template/css/datepicker3.css" rel="stylesheet">') %>
+            <% block('style').append('<link href="/user/static/admin_template/css/styles.css" rel="stylesheet">') %>
+                <% block('style').append('<link href="/user/static/admin_template/css/bootstrapValidator.min.css" rel="stylesheet" />') %>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+                            <div class="login-panel panel panel-default">
+                                <div class="panel-heading">
+                                    <%= title  %>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="密码" id="password" name="password" type="password" data-bv-notempty="true" data-bv-notempty-message="密码为空" data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-message="密码至少6个字符以上">
+                                <div class="panel-body">
+                                    <%- partial('user/views/alert', {success:success, error:error})  %>
+                                        <form action="/user/register" method="post" id="register_form">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="用户名" id="username" name="username" type="text" data-bv-notempty data-bv-notempty-message="用户名为空" data-bv-regexp="true" data-bv-regexp-regexp="[a-zA-Z0-9]+" data-bv-regexp-message="用户名只能是字母和数字" data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-message="用户名至少6个字符以上" autofocus>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="密码" id="password" name="password" type="password" data-bv-notempty="true" data-bv-notempty-message="密码为空" data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-message="密码至少6个字符以上">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="密码" id="repeat_password" name="repeat_password" type="password" data-bv-notempty="true" data-bv-notempty-message="确认密码为空" data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="两次密码不一致">
+                                                </div>
+                                                <input type="submit" class="btn btn-primary" id="register" value="注册">
+                                                <div class="pull-right">
+                                                    <a href="/user/login">马上登录</a>
+                                                </div>
+                                            </fieldset>
+                                        </form>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="密码" id="repeat_password" name="repeat_password" type="password" data-bv-notempty="true" data-bv-notempty-message="确认密码为空" data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="两次密码不一致">
-                                </div>
-                                <input type="submit" class="btn btn-primary" id="register" value="注册">
-                            </fieldset>
-                        </form>
-                </div>
-            </div>
-        </div>
-        <!-- /.col-->
-    </div>
-    <!-- /.row -->
-    <script src="/user/static/admin_template/js/jquery-1.11.1.min.js"></script>
-    <script src="/user/static/admin_template/js/bootstrap.min.js"></script>
-    <script src="/user/static/admin_template/js/bootstrapValidator.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('#register_form').bootstrapValidator();
-        var images = ['7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg']
-        var bg = images[Math.floor(Math.random() * 7)]
-        $("body").css("background-image", "url('/user/static/admin_template/bgs/" + bg + "')");
-    });
-    ! function($) {
-        $(document).on("click", "ul.nav li.parent > a > span.icon", function() {
-            $(this).find('em:first').toggleClass("glyphicon-minus");
-        });
-        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-    }(window.jQuery);
+                            </div>
+                        </div>
+                        <!-- /.col-->
+                    </div>
+                    <!-- /.row -->
+                    <script src="/user/static/admin_template/js/jquery-1.11.1.min.js"></script>
+                    <script src="/user/static/admin_template/js/bootstrap.min.js"></script>
+                    <script src="/user/static/admin_template/js/bootstrapValidator.min.js"></script>
+                    <script>
+                    $(document).ready(function() {
+                        $('#register_form').bootstrapValidator();
+                        var images = ['7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg']
+                        var bg = images[Math.floor(Math.random() * 5)]
+                        $("body").css("background-image", "url('/user/static/admin_template/bgs/" + bg + "')");
+                    });
+                    ! function($) {
+                        $(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+                            $(this).find('em:first').toggleClass("glyphicon-minus");
+                        });
+                        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+                    }(window.jQuery);
 
-    $(window).on('resize', function() {
-        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-    })
-    $(window).on('resize', function() {
-        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-    })
-    </script>
+                    $(window).on('resize', function() {
+                        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+                    })
+                    $(window).on('resize', function() {
+                        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+                    })
+                    </script>
