@@ -14,8 +14,8 @@ var ejs = require('ejs');
 var engine = require('ejs-mate');
 
 //主模块
-var index = require('./main_modules/index.js');
-var main_modules = require('./main_modules/main.js');
+var index = require('./main_modules/main');
+var main_modules = require('./main_modules/index.js');
 
 
 var app = express();

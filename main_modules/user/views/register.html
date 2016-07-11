@@ -1,29 +1,64 @@
-<% layout('main') -%>
-    <% block('title').append(title) %>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="page-header">
-                        <h1><%= title %></h1>
+<!DOCTYPE html>
+<html class="login-bg">
+
+<head>
+    <title>用户注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap -->
+    <link href="/user/static/admin_template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/user/static/admin_template/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/user/static/admin_template/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/user/static/admin_template/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/user/static/admin_template/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/user/static/admin_template/css/icons.css" />
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="/user/static/admin_template/css/lib/font-awesome.css" />
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="/user/static/admin_template/css/compiled/signin.css" type="text/css" media="screen" />
+    <!-- open sans font -->
+    <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div class="row-fluid login-wrapper">
+        <div class="box">
+            <div class="content-wrap">
+                <h6>注册</h6>
+                <form action="/user/register" method="post" id="register_form">
+                    <input class="span12" type="text" placeholder="用户名/邮箱/手机号" name="username" required />
+                    <input class="span12" type="password" name="password" id="password" placeholder="密码" required minlength="6" />
+                    <input class="span12" type="password" id="repeatPassword" placeholder="确认密码"    data-validation-matches-match="password" />
+                    <div class="action">
+                        <button type="submit" class="btn-glow primary signup">注册</button>
                     </div>
-                    <div class="panel-body">
-                        <%- partial('user/views/alert', {success:success, error:error})  %>
-                            <form action="/user/register" method="post">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="用户名" id="username" name="username" type="text" autofocus>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="密码" id="password" name="password" type="password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="密码" id="repeat_password" name="repeat_password" type="password">
-                                    </div>
-                                    <input type="submit" class="btn btn-primary" id="register" value="注册">
-                                </fieldset>
-                            </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-        <script type="text/javascript" src="/user/static/javascripts/user_login_reg.js"></script>
+        <div class="span4 no-account">
+            <p>已有账号?</p>
+            <a href="/user/login">登录</a>
+        </div>
+    </div>
+    <!-- scripts -->
+    <script src="/user/static/admin_template/js/jquery-latest.js"></script>
+    <script src="/user/static/admin_template/js/bootstrap.min.js"></script>
+    <script src="/user/static/admin_template/js/jqBootstrapValidation.min.js"></script>
+    <script src="/user/static/admin_template/js/theme.js"></script>
+    <!-- pre load bg imgs -->
+    <script type="text/javascript">
+    $(function() {
+        // bg switcher
+        var images = ['landscape.jpg', 'blueish.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg']
+        var bg = images[Math.floor(Math.random() * 7)]
+        $("html").css("background-image", "url('/user/static/admin_template/img/bgs/" + bg + "')");
+
+        //login from validate
+        $('#register_form').jqBootstrapValidation();
+
+    });
+    </script>
+</body>
+
+</html>

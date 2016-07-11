@@ -1,15 +1,10 @@
-<div class="alert hide" id="alert" role="alert"></div>
-<script type="text/javascript">
-$(function() {
-    <% if(success && success.length>0) { %>
-    $('#alert').removeClass('alert-warning hide');
-    $('#alert').addClass('alert-success');
-    $('#alert').html('<%= success%>')
-    <% } %>
-    <% if(error && error.length>0) { %>
-    $('#alert').removeClass('alert-success hide');
-    $('#alert').addClass('alert-warning');
-    $('#alert').html('<%= error%>')
-    <% } %>
-});
-</script>
+<% if(success && success.length>0) { %>
+    <div class="alert alert-success" id="alert" role="alert">
+        <%= success%>
+    </div>
+<% } %>
+<% if(error && error.length>0) { %>
+    <div class="alert alert-warning" id="alert" role="alert">
+        <%= error%>
+    </div>
+<% } %>

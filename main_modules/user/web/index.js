@@ -4,8 +4,7 @@ var UserService = require('../service/user_service')
 var Authorize = require('../../../authorize')
 
 router.get('/', Authorize.user, function(req, res, next) {
-    res.send('user')
-        // res.render('user/views/index', { title: 'user' });
+    res.render('user/views/user',{title: '用户中心'})
 });
 
 
