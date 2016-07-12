@@ -54,6 +54,11 @@ User = sequelize.define('user', {
     avatar: {
         type: Sequelize.STRING,
         field: 'avatar'
+    },
+    status: {
+        type: Sequelize.ENUM,
+        field: 'status',
+        values: ['active', 'pending', 'deleted']
     }
 
 }, {
