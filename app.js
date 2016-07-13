@@ -51,7 +51,9 @@ app.use(session({
 
 //记录访问日志
 app.use(function(req, res, next) {
-    logService.accessLog(req);
+    var re=/\.(swf|gif|jpg|bmp|jpeg|png|js|css|ttf)/gi;
+    if(!re.exec(req.url))
+        logService.accessLog(req);
     next();
 });
 
