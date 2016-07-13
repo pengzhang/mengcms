@@ -10,6 +10,7 @@ router.get('/', Authorize.user, function(req, res, next) {
 
 /**
  * 用户注册
+ * 默认:激活状态
  * @param  {[type]} req         [description]
  * @param  {[type]} res         [description]
  * @return {[type]}             [description]
@@ -23,7 +24,7 @@ router.get('/register', function(req, res, next) {
 })
 
 router.post('/register', function(req, res, next) {
-    UserService.register(req.body, function(err, result) {
+    UserService.register(req.body, false, function(err, result) {
         if (err) {
             req.flash('error', result);
             res.redirect('/user/register');
@@ -63,6 +64,16 @@ router.post('/login', function(req, res, next) {
         }
 
     });
+})
+
+/**
+ * 登出
+ */
+router.get('/logout', function(req, res,next){
+    req.session.destroy(function(result){
+        res.redirect('/user/login')
+    });
+
 })
 
 /**

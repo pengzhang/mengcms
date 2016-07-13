@@ -2,19 +2,19 @@
     "menu": {
         "id":"user_menu",
         "name": "用户中心",
-        "url": "/user",
+        "url": "/user/admin",
         "icon": "user",
         "child": [{
             "name": "所有用户",
-            "url": "/user",
+            "url": "/user/admin",
             "icon": "user"
         }, {
             "name": "添加用户",
-            "url": "/user/add",
+            "url": "/user/admin/add",
             "icon": "plus"
         }, {
             "name": "用户分析",
-            "url": "/user/statistics",
+            "url": "/user/admin/statistics",
             "icon": "eye-open"
         }]
     }

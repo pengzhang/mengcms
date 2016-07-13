@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //session存储
 app.use(session({
     secret: 'mengcms',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     store: new RedisStore({
         host: redis_conf.host,
