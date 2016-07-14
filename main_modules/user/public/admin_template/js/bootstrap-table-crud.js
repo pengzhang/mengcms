@@ -4,8 +4,8 @@
 //var API_URL_DELETE = '';
 //var API_URL_GET = '';
 
-var API_URL_UPDATE = '/user/admin/modify?id=';
-var API_URL_DELETE = '/user/admin/remove?id=';
+var API_URL_UPDATE = '/user/admin/modify/';
+var API_URL_DELETE = '/user/admin/remove/';
 var API_URL_GET = '/user/admin/data';
 
 var $table = $('#table').bootstrapTable({url:API_URL_GET}),
@@ -72,7 +72,8 @@ function actionFormatter(value) {
 // update and delete events
 window.actionEvents = {
     'click .update': function (e, value, row) {
-        showModal($(this).attr('title'), row);
+        location.href=API_URL_UPDATE+row.id
+        //showModal($(this).attr('title'), row);
     },
     'click .remove': function (e, value, row) {
         if (confirm('真的要删除吗?')) {

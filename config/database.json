@@ -1,7 +1,14 @@
 {
-    "development": {
+    "development_sqlite": {
         "dialect": "sqlite",
         "storage": "./database/sqlite/development.sqlite"
+    },
+    "development": {
+        "username": "root",
+        "password": "root",
+        "database": "mengcms",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
     },
     "test": {
         "username": "root",

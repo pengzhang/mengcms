@@ -64,7 +64,11 @@ UserService.prototype = {
             .then(function (user) {
                 if (user) {
                     if (user.password == md5(password)) {
-                        callback(false, user.toJSON());
+                        if(user.status != 'active'){
+                            callback(true, '用户未激活或已删除')
+                        }else{
+                            callback(false, user.toJSON());
+                        }
                     } else {
                         callback(true, '密码错误');
                     }
@@ -82,7 +86,10 @@ UserService.prototype = {
      * @param callback
      */
     getById: function (id, callback) {
-        User.findById(id)
+        User.findOne({
+                where: {id: id},
+                attributes: {exclude: ['password']}
+            })
             .then(function (user) {
                 callback(false, user);
             }).catch(function (err) {
@@ -126,7 +133,9 @@ UserService.prototype = {
             ]
         } else {
             condition.order = [
-                ['status', 'desc']
+                ['status', 'asc'],
+                ['createdAt', 'desc'],
+                ['updatedAt', 'desc']
             ]
         }
 
@@ -134,31 +143,27 @@ UserService.prototype = {
             condition.where = {
                 $or: [{
                     username: {
-                        $like: '%' + search+'%'
+                        $like: '%' + search + '%'
                     }
-                },{
+                }, {
                     mobile: {
-                        $like: '%' + search+'%'
+                        $like: '%' + search + '%'
                     }
-                },{
+                }, {
                     email: {
-                        $like: '%' + search+'%'
+                        $like: '%' + search + '%'
                     }
-                },{
+                }, {
                     nickname: {
-                        $like: '%' + search+'%'
+                        $like: '%' + search + '%'
                     }
                 }]
             }
         }
 
-        console.log(condition)
-
-
         //查询
         var result = {}
         User.count().then(function (total) {
-            console.log(total)
             if (total <= 0) {
                 result.total = 0;
                 result.rows = {};
@@ -218,10 +223,10 @@ UserService.prototype = {
      * @param  {Function} callback [description]
      * @return {[type]}            [description]
      */
-    modify: function (user, callback) {
+    modify: function (id, user, callback) {
         User.update(user, {
                 where: {
-                    id: user.id
+                    id: id
                 }
             })
             .then(function (obj) {

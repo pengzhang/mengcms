@@ -19,7 +19,7 @@ AccessLog = sequelize.define('access_log', {
     },
     //用户IP地址 ipv4
     ip: {
-        type: Sequelize.STRING(20),
+        type: Sequelize.STRING,
         field: 'ip',
         validate: {
             // isIPv4: true
@@ -27,17 +27,17 @@ AccessLog = sequelize.define('access_log', {
     },
     //所使用的浏览器名称
     brower: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         field: 'brower'
     },
     //所使用的操作系统
     system: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         field: 'system'
     },
     //设备信息 电脑, 手机, 平板电脑....
     device: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         field: 'device'
     }
 }, {
