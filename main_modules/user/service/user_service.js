@@ -1,5 +1,6 @@
 var User = require('../model/user')
 var md5 = require('md5')
+var sequelize = require('../../../database/db')
 
 function UserService() {
 }
@@ -64,9 +65,9 @@ UserService.prototype = {
             .then(function (user) {
                 if (user) {
                     if (user.password == md5(password)) {
-                        if(user.status != 'active'){
+                        if (user.status != 'active') {
                             callback(true, '用户未激活或已删除')
-                        }else{
+                        } else {
                             callback(false, user.toJSON());
                         }
                     } else {
@@ -163,27 +164,14 @@ UserService.prototype = {
 
         //查询
         var result = {}
-        User.count().then(function (total) {
-            if (total <= 0) {
-                result.total = 0;
-                result.rows = {};
-                callback(false, result.toJSON())
-            } else {
-                User.findAll(condition)
-                    .then(function (users) {
-                        result.total = total;
-                        result.rows = users;
-                        callback(false, result)
-                    }).catch(function (err) {
-                    console.error(err);
-                    callback(true, '查询失败,请重试');
-                });
-            }
+        User.findAndCount(condition).then(function (obj) {
+            result.total = obj.count;
+            result.rows = obj.rows;
+            callback(false, result)
         }).catch(function (err) {
-            console.log(err)
+            console.log(err);
             callback(true, '查询计数失败, 请重试')
         })
-
     },
     /**
      * 搜索用户
@@ -264,7 +252,196 @@ UserService.prototype = {
             console.error(err);
             callback(true, '查询密码失败,请重试');
         });
+    },
+    /**
+     * 用户总数
+     * @param callback
+     */
+    total: function (callback) {
+        User.count().then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    today: function (callback) {
+        var date = new Date();
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $gte: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    todayPer: function (callback) {
+        var date = new Date();
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $lt: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    yesterday: function (callback) {
+        var date = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $gte: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    yesterdayPer: function (callback) {
+        var date = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $lte: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    week: function (callback) {
+        var date = new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        date = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+        var end = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+
+        User.count({
+            where: {
+                $and: [
+                    {
+                        createdAt: {
+                            $gte: new Date(end)
+                        }
+                    },
+                    {
+                        createdAt: {
+                            $lte: new Date(start)
+                        }
+                    }
+                ]
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    weekPer: function (callback) {
+        var date = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $lte: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    month: function (callback) {
+        var date = new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        date = new Date(date.getTime() - 30 * 24 * 60 * 60 * 1000);
+        var end = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+
+        User.count({
+            where: {
+                $and: [
+                    {
+                        createdAt: {
+                            $gte: new Date(end)
+                        }
+                    },
+                    {
+                        createdAt: {
+                            $lte: new Date(start)
+                        }
+                    }
+                ]
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    monthPer: function (callback) {
+        var date = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + " 08:00:00";
+        User.count({
+            where: {
+                createdAt: {
+                    $lte: new Date(start)
+                }
+            }
+        }).then(function (total) {
+            callback(total);
+        }).catch(function (err) {
+            console.log(err);
+            callback(0);
+        })
+    },
+    statChart: function (callback) {
+        var stat = {};
+        var date = new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000);
+        var start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        date = new Date(date.getTime() - 30 * 24 * 60 * 60 * 1000);
+        var end = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+        sequelize.query("select count(*) as num , DATE_FORMAT(createdAt,\'%Y%m%d\') as date from user where createdAt>=\'" + end + "\' and createdAt<=\'" + start + "\' GROUP BY DATE_FORMAT(createdAt,\'%Y%m%d\')"
+            , {type: sequelize.QueryTypes.SELECT})
+            .then(function (result) {
+                var date = [];
+                var count = [];
+                result.forEach(function (obj) {
+                    date.push(obj.date);
+                    count.push(obj.num);
+                })
+                stat.date = date;
+                stat.num = count;
+                callback(false, stat);
+            })
     }
 }
+
+new UserService().todayPer(function (data) {
+    console.log(data)
+})
 
 module.exports = new UserService()

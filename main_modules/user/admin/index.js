@@ -93,7 +93,7 @@ router.post('/admin/modify/:id', Authorize.user, function (req, res, next) {
     UserService.modify(req.params.id, req.body, function (err, result) {
         if (err) {
             req.flash('error', '修改用户信息失败');
-            res.redirect('/user/admin/modify/'+req.params.id);
+            res.redirect('/user/admin/modify/' + req.params.id);
         } else {
             req.flash('success', '修改用户信息成功');
             res.redirect('/user/admin');
@@ -105,13 +105,89 @@ router.post('/admin/modify/:id', Authorize.user, function (req, res, next) {
 /**
  * 移除用户
  */
-router.get('/admin/remove/:id', Authorize.user, function(req, res, next){
-    UserService.modify(req.params.id, {'status':'deleted'}, function(err, result){
-        if(err){
+router.get('/admin/remove/:id', Authorize.user, function (req, res, next) {
+    UserService.modify(req.params.id, {'status': 'deleted'}, function (err, result) {
+        if (err) {
             res.status(500).send('删除失败')
-        }else{
+        } else {
             res.send('删除成功');
         }
+    })
+})
+
+router.get('/admin/statistics', Authorize.user, function (req, res, next) {
+    var username = req.session.username;
+    var userid = req.session.user;
+
+    res.render('user/views/admin/statistics', {
+        title: '用户分析报告',
+        admin: menu,
+        current: 'user_menu',
+        userid: userid,
+        username: username
+    })
+})
+
+/**
+ * 用户数据分析
+ */
+
+router.get('/admin/statistics/total', Authorize.user, function (req, res, next) {
+    UserService.total(function (data) {
+        res.send({total: data});
+    })
+})
+
+router.get('/admin/statistics/today', Authorize.user, function (req, res, next) {
+    UserService.today(function (data) {
+        res.send({today: data});
+    })
+})
+router.get('/admin/statistics/today/per', Authorize.user, function (req, res, next) {
+    UserService.todayPer(function (data) {
+        res.send({today: data});
+    })
+})
+
+router.get('/admin/statistics/yesterday', Authorize.user, function (req, res, next) {
+    UserService.yesterday(function (data) {
+        res.send({yesterday: data});
+    })
+})
+
+router.get('/admin/statistics/yesterday/per', Authorize.user, function (req, res, next) {
+    UserService.yesterdayPer(function (data) {
+        res.send({yesterday: data});
+    })
+})
+
+router.get('/admin/statistics/week', Authorize.user, function (req, res, next) {
+    UserService.week(function (data) {
+        res.send({week: data});
+    })
+})
+
+router.get('/admin/statistics/week/per', Authorize.user, function (req, res, next) {
+    UserService.weekPer(function (data) {
+        res.send({week: data});
+    })
+})
+
+router.get('/admin/statistics/month', Authorize.user, function (req, res, next) {
+    UserService.month(function (data) {
+        res.send({month: data});
+    })
+})
+
+router.get('/admin/statistics/month/per', Authorize.user, function (req, res, next) {
+    UserService.monthPer(function (data) {
+        res.send({month: data});
+    })
+})
+
+router.get('/admin/statistics/chart', Authorize.user, function (req, res, next) {
+    UserService.statChart(function (err, data) {
+        res.send(data);
     })
 })
 

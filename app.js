@@ -42,11 +42,12 @@ app.use(session({
     store: new RedisStore({
         host: redis_conf.host,
         port: redis_conf.port
-    }),
-    cookie: {
-        // secure: true,
-        maxAge: 600000
-    }
+    })
+    //,
+    //cookie: {
+    //    // secure: true,
+    //    maxAge: 600000
+    //}
 }));
 
 //记录访问日志
