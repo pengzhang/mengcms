@@ -1,5 +1,5 @@
 {
-    "menu": {
+    "admin": {
         "id":"main_menu",
         "name": "主控制台",
         "url": "/user",

@@ -1,4 +1,4 @@
-<% admin.menu.forEach(function(data){ %>
+<% admin.forEach(function(data){ %>
     <%if(data.child){%>
     	<li class="parent <%if(current==data.id){%>active<%}%>">
             <a href="<%=data.url %>">

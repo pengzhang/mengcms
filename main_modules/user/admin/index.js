@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var menu = require('../../admin.js');
+var menu = require('../../menu.js').admin;
 var UserService = require('../service/user_service')
 var Authorize = require('../../../authorize')
 
@@ -11,6 +11,7 @@ var Authorize = require('../../../authorize')
 router.get('/admin/', Authorize.user, function (req, res, next) {
     var username = req.session.username;
     var userid = req.session.user;
+    console.log(menu)
     res.render('user/views/admin/index', {
         title: '用户管理',
         admin: menu,

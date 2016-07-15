@@ -1,5 +1,5 @@
 {
-    "menu": {
+    "admin": {
         "id":"user_menu",
         "name": "用户中心",
         "url": "/user/admin",
