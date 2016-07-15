@@ -1,0 +1,21 @@
+{
+    "admin": {
+        "id":"article_menu",
+        "name": "文章管理",
+        "url": "/article/admin",
+        "icon": "user",
+        "child": [{
+            "name": "所有文章",
+            "url": "/article/admin",
+            "icon": "user"
+        }, {
+            "name": "添加文章",
+            "url": "/article/admin/add",
+            "icon": "plus"
+        }, {
+            "name": "文章分析",
+            "url": "/article/admin/statistics",
+            "icon": "eye-open"
+        }]
+    }
+}

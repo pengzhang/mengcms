@@ -1,8 +1,8 @@
 <% layout('main') -%>
 <% block('title').append(title) %>
-<% block('style').append('<link href="/user/static/admin_template/css/datepicker3.css" rel="stylesheet">') %>
-<% block('style').append('<link href="/user/static/admin_template/css/styles.css" rel="stylesheet">') %>
-<% block('style').append('<link href="/user/static/admin_template/css/bootstrap-table.css" rel="stylesheet">') %>
+<% block('style').append('<link href="/article/static/admin_template/css/datepicker3.css" rel="stylesheet">') %>
+<% block('style').append('<link href="/article/static/admin_template/css/styles.css" rel="stylesheet">') %>
+<% block('style').append('<link href="/article/static/admin_template/css/bootstrap-table.css" rel="stylesheet">') %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -69,12 +69,12 @@
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
-                            <th data-field="id" data-sortable="true">用户ID</th>
-                            <th data-field="username" data-sortable="true" data-formatter="sub10Formatter">用户名</th>
-                            <th data-field="nickname" data-sortable="true" data-formatter="sub10Formatter">昵称</th>
-                            <th data-field="mobile" data-sortable="true">手机号</th>
-                            <th data-field="email" data-sortable="true">电子邮箱</th>
-                            <th data-field="status" data-sortable="true" data-formatter="statusFormatter">状态</th>
+                            <th data-field="id" data-sortable="true">文章ID</th>
+                            <th data-field="cover_image" data-sortable="true" data-formatter="imageFormatter">文章封面</th>
+                            <th data-field="title" data-sortable="true" data-formatter="sub10Formatter">文章标题</th>
+                            <th data-field="sub_title" data-sortable="true" data-formatter="sub10Formatter">文章子标题</th>
+                            <th data-field="author" data-sortable="true">作者</th>
+                            <th data-field="draft" data-sortable="true" data-formatter="statusFormatter">状态</th>
                             <th data-field="createdAt" data-sortable="true" data-formatter="dateFormatter">创建日期</th>
                             <th data-field="updatedAt" data-sortable="true" data-visible="false" data-formatter="dateFormatter">修改日期</th>
                             <th data-field="action"
@@ -91,8 +91,8 @@
     </div><!--/.row-->
 </div><!--/.main-->
 <!--/.main-->
-<script src="/user/static/admin_template/js/bootstrap-table.js"></script>
-<script src="/user/static/admin_template/js/date-format.js"></script>
+<script src="/article/static/admin_template/js/bootstrap-table.js"></script>
+<script src="/article/static/admin_template/js/date-format.js"></script>
 <script>
 
     !function ($) {
@@ -115,7 +115,6 @@
         <% if(error && error.length>0) { %>
             showAlert('<%= error%>', 'warning');
         <% } %>
-
     })
 </script>
-<script src="/user/static/admin_template/js/bootstrap-table-crud.js"></script>
+<script src="/article/static/admin_template/js/bootstrap-table-crud.js"></script>

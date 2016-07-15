@@ -14,7 +14,7 @@ router.get('/admin/', Authorize.user, function (req, res, next) {
     console.log(menu)
     res.render('user/views/admin/index', {
         title: '用户管理',
-        admin: menu,
+        menu: menu,
         current: 'user_menu',
         userid: userid,
         username: username,
@@ -47,7 +47,7 @@ router.get('/admin/add', Authorize.user, function (req, res, next) {
     var userid = req.session.user;
     res.render('user/views/admin/add', {
         title: '添加用户',
-        admin: menu,
+        menu: menu,
         current: 'user_menu',
         userid: userid,
         username: username
@@ -80,7 +80,7 @@ router.get('/admin/modify/:id', Authorize.user, function (req, res, next) {
         } else {
             res.render('user/views/admin/modify', {
                 title: '修改用户',
-                admin: menu,
+                menu: menu,
                 current: 'user_menu',
                 userid: userid,
                 username: username,
@@ -122,7 +122,7 @@ router.get('/admin/statistics', Authorize.user, function (req, res, next) {
 
     res.render('user/views/admin/statistics', {
         title: '用户分析报告',
-        admin: menu,
+        menu: menu,
         current: 'user_menu',
         userid: userid,
         username: username
